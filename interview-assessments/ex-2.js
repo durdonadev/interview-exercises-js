@@ -12,38 +12,30 @@ function transformString(inputStr) {
 
     if (inputStr) {
         outputStr = inputStr;
-
-        // Count the number of digits and letters in the input string
-        let numDigits = 0;
-        let numLetters = 0;
-
-        for (let i = 0; i < inputStr.length; i++) {
-            const char = inputStr[i];
-            if (char >= "0" && char <= "9") {
-                numDigits++;
-            } else if (
-                (char >= "a" && char <= "z") ||
-                (char >= "A" && char <= "Z")
-            ) {
-                numLetters++;
+        const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const digits = "0123456789";
+        let letterCount = 0;
+        let digitCount = 0;
+        for (const char of outputStr) {
+            if (letters.includes(char)) {
+                letterCount++;
+            }
+            if (digits.includes(char)) {
+                digitCount++;
             }
         }
-
-        // Calculate the number of 'Z's required
-        const numZ = 4 - numLetters;
-
-        // Add 'Z's at the beginning of the string
+        const zNum = 4 - letterCount;
         let zString = "";
-        for (let i = 0; i < numZ; i++) {
+        for (let i = 0; i < zNum; i++) {
             zString += "Z";
         }
 
-        const numZero = 7 - numDigits;
+        const zeroNum = 7 - digitCount;
         let zeroString = "";
-        for (let i = 0; i < numZero; i++) {
+        for (let i = 0; i < zeroNum; i++) {
             zeroString += "0";
         }
-        outputStr = zString + outputStr + zeroString;
+        outputStr = zString + inputStr + zeroString;
     }
 
     return outputStr;
